@@ -45,7 +45,7 @@ return [
     | not expire. This won't tweak the lifetime of first-party sessions.
     |
     */
-
+    // 设置过期时间，单位为分钟
     'expiration' => null,
 
     /*

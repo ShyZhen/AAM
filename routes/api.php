@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+    return 'welcome to API Routes';
+});
+
+// no ACCESS TOKEN
+Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function () {
+    Route::get('start1', 'AuthController@test');
+});
+
+// need ACCESS TOKEN
+Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api\V1')->group(function () {
+    Route::get('start2', 'AuthController@getUser');
 });
