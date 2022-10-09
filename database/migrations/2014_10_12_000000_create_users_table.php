@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone', 64)->default('')->index();
             $table->string('avatar', 255)->default('');
             $table->enum('sex', ['male', 'female', 'secrecy'])->default('secrecy');
-            $table->enum('closure', ['none', 'yes'])->default('none');  // 用户状态，yes注销，无法登陆
+            $table->enum('forbidden', ['none', 'yes'])->default('none');  // 用户状态，yes注销，无法登陆
             $table->rememberToken();
             $table->timestamps();
         });

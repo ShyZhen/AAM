@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 'uuid', 'name', 'phone', 'avatar', 'sex', 'closure'
+        'id', 'uuid', 'name', 'phone', 'avatar', 'sex', 'forbidden'
     ];
 
     /**
@@ -34,6 +34,7 @@ class User extends Authenticatable
     }
 
     /**
+     * 登录 login in
      * 生成 sanctum token
      * @return string
      */
@@ -44,9 +45,10 @@ class User extends Authenticatable
 
     /**
      * 删除 当前用户所有 sanctum token
+     * 先删 再 生成 即可满足单一登录
      * @return mixed
      */
-    public function destroySanctumTokens()
+    public function destroyAllSanctumTokens()
     {
         return $this->tokens()->delete();
     }
@@ -58,6 +60,16 @@ class User extends Authenticatable
     public function destroySanctumTokensById($tokenId)
     {
         return $this->tokens()->where('id', $tokenId)->delete();
+    }
+
+    /**
+     * 登出 logout
+     * 删除 当前用户正在使用的 sanctum token
+     * @return mixed
+     */
+    public function destroyCurrentSanctumTokens()
+    {
+        return $this->currentAccessToken()->delete();
     }
 
 }
