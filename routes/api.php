@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function () {
     Route::post('login-code', 'AuthController@loginCodeCrul');
     Route::post('login', 'AuthController@loginCurl');
+    Route::get('start', 'BootstrapController@start');
 });
 
 // need ACCESS TOKEN
