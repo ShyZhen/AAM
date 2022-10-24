@@ -178,7 +178,7 @@
  
  
 #### logout
- - GET `http://yam.litblc.com/V1/logout`
+ - GET `{{aam_url}}/V1/logout`
  - 登出，token失效
  
 | 参数 | 必须 | 类型 | 需要登录 | 长度 | 备注 |
