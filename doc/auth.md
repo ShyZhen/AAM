@@ -131,10 +131,10 @@
  
 | 参数 | 必须 | 类型 | 需要登录 | 长度 | 备注 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| sex | N | Enum(male,female,secrecy) | Y | | 性别 |
+| sex | N | Enum(male,female,secrecy) | Y | | 性别，只有值为secrecy才可以更改，展示为男或者保密 |
 | name | N | String | Y | | 昵称 |
 | avatar | N | String | Y | | 头像url |
-| forbidden | N | Enum(none,yes) | Y |   | 注销用户传yes，（注销成功回调后记得调用logout接口，或者删除客户端本地token） |
+| forbidden | N | Enum(none,yes) | Y |   | 注销用户传yes，（注销成功回调后记得删除客户端本地token） |
  
  - 参数示例
 ```

@@ -217,6 +217,12 @@ class AuthService extends Service
         $user = Auth::user();
 
         if ($this->userRepository->update($data, $user->id)) {
+
+            // 注销操作
+            if (array_key_exists('forbidden', $data) && $data['forbidden'] == 'yes') {
+                $this->logout() && $this->forbiddenUser($user->getRawOriginal('phone'));
+            }
+
             return response()->json(
                 [
                     'data' => $this->userRepository->find($user->id),
@@ -334,6 +340,23 @@ class AuthService extends Service
             '&appname=aianmo'.
             '&mobile='.$account.
             '&code='.$code;
+
+        $client = new Client();
+        $response = $client->get($uri, $this->getHeader());
+        return $response->getBody()->getContents();
+    }
+
+    /**
+     * @param $account
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function forbiddenUser($account)
+    {
+        $uri = 'https://sender.ituiuu.com/'.
+            '?key='.$this->getKey().
+            '&appname=aianmo'.
+            '&cancel_member_uid='.$account;
 
         $client = new Client();
         $response = $client->get($uri, $this->getHeader());

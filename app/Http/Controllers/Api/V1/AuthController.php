@@ -130,6 +130,7 @@ class AuthController extends Controller
             'sex' => 'max:10|in:male,female,secrecy',
             'forbidden' => 'in:none,yes',
             'name' => 'max:20',
+            'avatar' => 'max:255'
         ]);
 
         if ($validator->fails()) {
