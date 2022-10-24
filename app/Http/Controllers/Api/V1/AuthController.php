@@ -68,7 +68,7 @@ class AuthController extends Controller
         if ($type) {
             $validator = Validator::make($request->all(), [
                 'account' => 'max:255',
-                'code' => 'required|size:6',
+                'code' => 'required|size:5',
             ]);
 
             if ($validator->fails()) {
@@ -129,6 +129,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'sex' => 'max:10|in:male,female,secrecy',
             'forbidden' => 'in:none,yes',
+            'name' => 'max:20',
         ]);
 
         if ($validator->fails()) {
@@ -141,7 +142,7 @@ class AuthController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         } else {
-            $params = $request->only('sex', 'forbidden');
+            $params = $request->only('sex', 'forbidden', 'name', 'avatar');
             return $this->authService->updateMyInfo($params);
         }
     }

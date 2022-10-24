@@ -39,12 +39,13 @@ class AuthService extends Service
      */
     public function sendLoginCodeCurl($account)
     {
-        $uri = 'http://sender.ituiuu.com/sms'.
-            '?key=yianmo'.
+        $uri = 'http://sender.ituiuu.com/'.
+            '?key='.$this->getKey().
+            '&appname=aianmo'.
             '&mobile='.$account;
 
         $client = new Client();
-        $response = $client->get($uri);
+        $response = $client->get($uri, $this->getHeader());
         $result = $response->getBody()->getContents();
 
         if (!empty($result) && !empty($result = json_decode($result, true))) {
@@ -328,13 +329,31 @@ class AuthService extends Service
      */
     private function verifyLoginCodeCurl($account, $code)
     {
-        $uri = 'http://sender.ituiuu.com/sms'.
-            '?key=yianmo'.
+        $uri = 'https://sender.ituiuu.com/'.
+            '?key='.$this->getKey().
+            '&appname=aianmo'.
             '&mobile='.$account.
             '&code='.$code;
 
         $client = new Client();
-        $response = $client->get($uri);
+        $response = $client->get($uri, $this->getHeader());
         return $response->getBody()->getContents();
+    }
+
+    private function getKey()
+    {
+        $appName = 'aianmo';
+        $hour = date('H');
+        return md5($appName.$hour);
+    }
+
+    private function getHeader()
+    {
+        $clientIp = Request()->getClientIp();
+        return [
+            'headers' => [
+                'CLIENT-IP' => $clientIp,
+            ]
+        ];
     }
 }
