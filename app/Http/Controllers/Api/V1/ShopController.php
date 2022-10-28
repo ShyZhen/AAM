@@ -9,6 +9,10 @@ use Illuminate\Http\Response;
 
 class ShopController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAll(Request $request)
     {
         $shops = Shop::OrderBy('id', 'desc')->simplepaginate(env('PER_PAGE', 10));
@@ -22,6 +26,10 @@ class ShopController extends Controller
         );
     }
 
+    /**
+     * @param $uuid
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOne($uuid)
     {
         $shop = Shop::where('uuid', $uuid)->first();

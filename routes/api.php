@@ -28,6 +28,9 @@ Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function ()
 
     Route::get('technician', 'TechnicianController@getAll');
     Route::get('technician/{uuid}', 'TechnicianController@getOne');
+
+    Route::get('service', 'ServiceController@getAll');
+    Route::get('service/{uuid}', 'ServiceController@getOne');
 });
 
 // need ACCESS TOKEN
