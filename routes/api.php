@@ -40,4 +40,10 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
     Route::post('me', 'AuthController@updateMyInfo');
     Route::get('user/{uuid}', 'AuthController@getUserByUuid');
     Route::get('logout', 'AuthController@logout');
+
+    Route::get('h5config', 'BootstrapController@h5config');
+
+    Route::prefix('order')->group(function () {
+
+    });
 });

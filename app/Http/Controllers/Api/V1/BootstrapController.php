@@ -25,5 +25,9 @@ class BootstrapController extends Controller
         return $this->bootstrapService->getStartData();
     }
 
+    public function h5config(Request $request)
+    {
+        return $this->bootstrapService->geth5config();
+    }
 
 }
