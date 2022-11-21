@@ -47,12 +47,12 @@ class TechnicianController extends Controller
      */
     public function getOne($uuid)
     {
-        $shop = Technician::with(['shop', 'labels'])->where('uuid', $uuid)->first();
+        $item = Technician::with(['shop', 'labels'])->where('uuid', $uuid)->first();
 
-        if ($shop) {
+        if ($item) {
             return response()->json(
                 [
-                    'data' => $shop,
+                    'data' => $item,
                     'code' => 0,
                     'message' => ''
                 ],

@@ -32,4 +32,18 @@ class Technician extends Model
             ->orderBy('style')
             ->orderBy('id');
     }
+
+    /**
+     * 根据用户ID集合 查询技师信息
+     *
+     * @author z00455118 <zhenhuaixiu@huawei.com>
+     *
+     * @param $idArr
+     *
+     * @return mixed
+     */
+    public static function getByIdArr($idArr)
+    {
+        return Technician::whereIn('id', $idArr)->get(['id', 'uuid', 'name', 'avatar']);
+    }
 }

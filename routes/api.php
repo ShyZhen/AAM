@@ -44,6 +44,11 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
     Route::get('user/{uuid}', 'AuthController@getUserByUuid');
     Route::get('logout', 'AuthController@logout');
 
+    // 关注、取关某人
+    Route::post('follow/{userUuid}', 'UserController@follow');
+    Route::get('follow/status/{userUuid}', 'UserController@status');
+    Route::get('follow/list/{userUuid}', 'UserController@getFollowsList');
+
     Route::get('h5config', 'BootstrapController@h5config');
 
     Route::prefix('order')->group(function () {

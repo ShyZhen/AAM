@@ -231,3 +231,118 @@
 ```
 
 ------------------------------
+
+
+
+#### 关注/取消关注 某个技师
+ - POST `{{aam_url}}/V1/follow/{{T-uuid}}`
+ 
+| 参数 | 必须 | 类型 | 需要登录 | 长度 | 备注 |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| T-uuid  |   Y   |     |  Y  |     |   技师的UUID   |
+ 
+ - 返回值
+ > HTTP/1.1 200 OK
+```
+{
+    "data": [],
+    "code": 0,
+    "message": "关注成功"
+}
+{
+    "data": [],
+    "code": 0,
+    "message": "已取消关注"
+}
+```
+
+ > HTTP/1.1 404 OK
+```
+{
+    "data": [],
+    "code": -1,
+    "message": "该技师不存在"
+}
+```
+
+------------------------------
+
+
+
+
+#### 获取我关注的技师列表
+ - GET `{{aam_url}}/V1/follow/list/{{uuid}}`
+ 
+| 参数 | 必须 | 类型 | 需要登录 | 长度 | 备注 |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| uuid  |   Y   |     |  Y  |     |   当前用户的UUID（因为支持查看其他用户，所以有这个参数）   |
+| page  |   N   |     |  Y  |     |   页码，默认1   |
+ 
+ - 返回值
+ > HTTP/1.1 200 OK
+```
+{
+    "code": 0,
+    "message": "",
+    "data": [
+        {
+            "id": 1,
+            "uuid": "uuid-111",
+            "name": "小李",
+            "avatar": "https://image.fmock.com/MPWangzhe/hero/111.jpg",
+            "inMyFollows": true
+        },
+        {
+            "id": 2,
+            "uuid": "uuid-222",
+            "name": "小娜",
+            "avatar": "https://image.fmock.com/MPWangzhe/hero/111.jpg",
+            "inMyFollows": true
+        }
+    ]
+}
+```
+
+ > HTTP/1.1 404 OK
+```
+{
+    "data": [],
+    "code": -1,
+    "message": "该用户不存在"
+}
+```
+
+------------------------------
+
+
+
+
+#### 获取我与当前技师的关注状态
+ - GET `{{aam_url}}/V1/follow/list/{{T-uuid}}`
+ 
+| 参数 | 必须 | 类型 | 需要登录 | 长度 | 备注 |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| T-uuid  |   Y   |     |  Y  |     |   技师的uuid   |
+ 
+ - 返回值
+ > HTTP/1.1 200 OK
+```
+{
+    "code": 0,
+    "message": "",
+    "data": {
+        "inMyFollows": true    // true 就是已关注，false就是未关注
+    }
+}
+```
+
+ > HTTP/1.1 404 OK
+```
+{
+    "data": [],
+    "code": -1,
+    "message": "该技师不存在"
+}
+```
+
+------------------------------
