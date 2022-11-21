@@ -18,11 +18,16 @@ class TechnicianController extends Controller
     public function getAll(Request $request)
     {
         $isPretty = $request->input('is_pretty', 0);
+        $isRecommend = $request->input('is_recommend', 0);
 
         $shops = Technician::with(['shop', 'labels'])
             ->OrderBy('id', 'desc')
             ->when($isPretty, function ($query) {
                 return $query->where('is_pretty', 1);
+            })
+            // 不确定首页是推荐技师还是项目，都做个筛选
+            ->when($isRecommend, function ($query) {
+                return $query->where('is_recommend', 1);
             })
             ->simplepaginate(env('PER_PAGE', 10));
 

@@ -37,6 +37,8 @@ return new class extends Migration
 
             $table->string('intro', 255)->default('')->comment('服务者介绍');
             $table->tinyInteger('is_pretty')->default(0)->comment('是否是颜值出众的(颜值区),0否,1是');
+            $table->tinyInteger('is_recommend')->default(0)->comment('是否是推荐到首页,0否,1是');
+
             $table->timestamps();
         });
     }
