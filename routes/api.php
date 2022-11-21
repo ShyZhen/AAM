@@ -22,10 +22,13 @@ Route::get('/', function () {
 Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function () {
     Route::post('login-code', 'AuthController@loginCodeCrul');
     Route::post('login', 'AuthController@loginCurl');
+
     Route::get('start', 'BootstrapController@start');
+    Route::get('book-check', 'BootstrapController@bookCheck');
+
     Route::get('shops', 'ShopController@getAll');
     Route::get('shop/{uuid}', 'ShopController@getOne');
-    Route::get('book-check', 'BootstrapController@bookCheck');
+
     Route::get('technician', 'TechnicianController@getAll');
     Route::get('technician/{uuid}', 'TechnicianController@getOne');
 
