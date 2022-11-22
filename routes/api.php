@@ -34,6 +34,12 @@ Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function ()
 
     Route::get('service', 'ServiceController@getAll');
     Route::get('service/{uuid}', 'ServiceController@getOne');
+
+    // 第三方回调
+    Route::prefix('callback')->group(function () {
+        Route::any('alipay', 'CallbackController@alipay');
+        Route::any('wechat', 'CallbackController@wechat');
+    });
 });
 
 // need ACCESS TOKEN
@@ -51,7 +57,19 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
 
     Route::get('h5config', 'BootstrapController@h5config');
 
+    // 由于可以换技师，在支付成功回调更新技师订单数
     Route::prefix('order')->group(function () {
+        Route::get('/', 'OrderController@getAll');
+        Route::get('/{order_id}', 'OrderController@getOne');
+        Route::post('/', 'OrderController@createOrder');
+        Route::delete('/{order_id}', 'OrderController@deleteOrder');
 
+        // 支付
+        Route::post('/pay', 'OrderController@doPay');
+        Route::delete('/pay/{payment_id}', 'OrderController@cancelPay');
+        // 退款申请
+        Route::post('/pay/refund', 'OrderController@refund');            // （后台处理完退款之后，记得修改order_refund.status=1, order.status=3）
+        // 调用隐私保护打电话
+        Route::post('/call', 'OrderController@call');
     });
 });

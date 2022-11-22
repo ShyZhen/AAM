@@ -10,7 +10,7 @@ class UsersFollow extends Model
     protected $table = 'users_follow';
 
     protected $fillable = [
-        'master_user_id', 'following_user_id', 'both_status',
+        'master_user_id', 'following_user_id',
     ];
 
 }
