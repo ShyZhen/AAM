@@ -38,6 +38,7 @@
                 "url": "https://www.litblc.com",
                 "height": "100"
             },
+            "pay_type": 1,  // 默认支付方式，1支付宝，2微信
             "promise": [
                 {
                     "name": "官方保证"
