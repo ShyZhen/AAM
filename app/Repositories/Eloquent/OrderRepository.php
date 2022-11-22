@@ -87,8 +87,11 @@ class OrderRepository extends Repository
             ->where(['user_id' => $userId, 'order_id' => $orderId])
             ->first();
 
-        $ex = env('ORDER_EX');
-        $order['expire_at'] = Carbon::parse($order->created_at. ' -'.$ex.'days');
+        if ($order) {
+            $ex = env('ORDER_EX');
+            $order['expire_at'] = Carbon::parse($order->created_at. ' -'.$ex.'days');
+        }
+
         return $order;
     }
 
