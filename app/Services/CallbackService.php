@@ -47,14 +47,21 @@ class CallbackService extends Service
         $orderId = substr($paymentId, 0, 22);
 
         DB::beginTransaction();
-        $order = $this->orderRepository->update(['status' => 1], $orderId, 'order_id');
+        $order = Order::whereOrderId($orderId)->first();
+
+        // 订单不存在或者状态已经为支付完成
+        if (!$order || $order->status != 0) {
+            return false;
+        }
+
+        $order->status = 1;
         $payment = $this->orderPaymentRepository->update(['status' => 1], $paymentId, 'payment_id');
-        if ($order && $payment) {
+        if ($order->save() && $payment) {
             DB::commit();
 
-            // 更新订单数
-            $technicianId = Order::where('order_id', $orderId)->first()->technician_id;
-            Technician::whereId($technicianId)->increment('order_count');
+            // 更新订单数与售卖份数
+            Technician::whereId($order->technician_id)->increment('order_count');
+            \App\Models\Service::whereId($order->service_id)->increment('sold_count');
 
             return true;
         } else {
