@@ -65,7 +65,6 @@ class UserService extends Service
             } else {
                 // 关注操作
 
-                // 查看他是否已经关注了我
                 $createFollow = $this->usersFollowRepository->create([
                     'master_user_id' => $technician->id,
                     'following_user_id' => $currId,
@@ -119,7 +118,7 @@ class UserService extends Service
 
         if ($technician) {
             $iFollowedYou = (bool) $this->usersFollowRepository->isFollowed($currId, $technician->id);
-            $youFollowMe = (bool) $this->usersFollowRepository->isFollowed($technician->id, $currId);
+            // $youFollowMe = (bool) $this->usersFollowRepository->isFollowed($technician->id, $currId);
 
             $data = [
                 'inMyFollows' => $iFollowedYou,
