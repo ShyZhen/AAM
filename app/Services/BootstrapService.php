@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Banner;
 use App\Models\Setting;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ class BootstrapService extends Service
     public function getStartData()
     {
         $data['banner'] = $this->getBanner();
+        $data['book_check'] = $this->bookCheck();
         $data['setting'] = $this->getSetting();
         $data['setting']['pay_type'] = env('PAY_TYPE');
         $data['setting']['order_ex'] = env('ORDER_EX');
@@ -84,5 +86,31 @@ class BootstrapService extends Service
         }
 
         return $res;
+    }
+
+    /**
+     * 下单检查
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function bookCheck()
+    {
+        // 已满
+//        $res = [
+//                'data' => [],
+//                'code' => -1,
+//                'message' => '该服务已满请预约其它服务'
+//        ];
+
+        // 正常
+        $res = [
+            'data' => [],
+            'code' => 0,
+            'message' => 'ok'
+        ];
+
+        return $res;
+
     }
 }
