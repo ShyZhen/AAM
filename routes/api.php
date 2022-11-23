@@ -71,6 +71,6 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
         // 退款申请
         Route::post('/pay/refund', 'OrderController@refund');            // （后台处理完退款之后，记得修改order_refund.status=1, order.status=3）
         // 调用隐私保护打电话
-        Route::post('/call', 'OrderController@call');
+        // Route::post('/call', 'OrderController@call');
     });
 });
