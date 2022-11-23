@@ -14,7 +14,7 @@ class CreateBanner extends Migration
     public function up()
     {
         Schema::create('banner', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id('id');
             $table->string('title', 128)->default('');
             $table->string('image', 255)->default('')->comment('单张图片url,255字符以内');
             $table->string('uri', 255)->default('')->comment('跳转携带的uri,255字符以内');

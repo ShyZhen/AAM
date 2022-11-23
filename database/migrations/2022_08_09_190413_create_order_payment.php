@@ -16,7 +16,7 @@ class CreateOrderPayment extends Migration
     {
         // 记录发起支付的表
         Schema::create('order_payment', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id('id');
             $table->string('order_id', 32)->index()->comment('订单id');
             $table->string('payment_id', 64)->index()->comment('支付单id,由order_id+随机4位组成,用来幂等防止重复支付');  // 2分钟内有该数据并且callback修改状态之前的状态status
             $table->unsignedBigInteger('pay_amount')->default(0)->comment('支付总额:分');

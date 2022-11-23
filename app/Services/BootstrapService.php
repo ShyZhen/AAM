@@ -19,6 +19,8 @@ class BootstrapService extends Service
     {
         $data['banner'] = $this->getBanner();
         $data['setting'] = $this->getSetting();
+        $data['setting']['pay_type'] = env('PAY_TYPE');
+        $data['setting']['order_ex'] = env('ORDER_EX');
 
         return response()->json(
             [

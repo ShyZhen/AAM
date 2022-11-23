@@ -1,3 +1,5 @@
+## START 初始化配置
+
 #### 初始化配置接口start
  - GET `{{aam_url}}/V1/start`
  
@@ -38,7 +40,6 @@
                 "url": "https://www.litblc.com",
                 "height": "100"
             },
-            "pay_type": 1,  // 默认支付方式，1支付宝，2微信
             "promise": [
                 {
                     "name": "官方保证"
@@ -52,7 +53,9 @@
                 {
                     "name": "服务无忧"
                 }
-            ]
+            ],
+            "pay_type": 1,  // 默认支付方式，1支付宝，2微信
+            "order_ex": 30,  // 默认设置的订单过期时间 单位：天
         }
     }
 }
