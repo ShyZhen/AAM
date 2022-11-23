@@ -63,6 +63,7 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
         Route::get('/{order_id}', 'OrderController@getOne');
         Route::post('/', 'OrderController@createOrder');
         Route::delete('/{order_id}', 'OrderController@deleteOrder');
+        Route::post('change', 'OrderController@changeTechnician');
 
         // 支付
         Route::post('/pay', 'OrderController@doPay');

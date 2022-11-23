@@ -186,4 +186,29 @@ class OrderController extends Controller
             return $this->orderService->call($request->get('order_id'), $request->get('technician_id'));
         }
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeTechnician(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required|max:32',
+            'technician_id' => 'required|max:32',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'message' => $validator->errors()->first(),
+                    'code' => -1,
+                    'data' => []
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        } else {
+            return $this->orderService->changeTechnician($request->get('order_id'), $request->get('technician_id'));
+        }
+    }
 }

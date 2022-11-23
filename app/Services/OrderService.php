@@ -522,6 +522,56 @@ class OrderService extends Service
     }
 
     /**
+     * @param $orderId
+     * @param $technicianId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeTechnician($orderId, $technicianId)
+    {
+        // 订单必须已存在，并且已支付
+        $userId = Auth::id();
+        $order = $this->orderRepository->getOneOrder($userId, $orderId);
+        unset($order['expire_at']);
+
+        if (!$order || $order->status != 1) {
+            return response()->json(
+                [
+                    'message' => '该订单不存在或未支付',
+                    'code' => -1,
+                    'data' => []
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        // 技师必须存在，不然回显有问题
+        $item = Technician::find($technicianId);
+        if (!$item) {
+            return response()->json(
+                [
+                    'message' => '该技师不存在',
+                    'code' => -1,
+                    'data' => []
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $order->technician_id = $technicianId;
+        if ($order->save()) {
+            return response()->json(
+                [
+                    'message' => '更新成功',
+                    'code' => 0,
+                    'data' => []
+                ],
+                Response::HTTP_OK
+            );
+        }
+
+    }
+
+    /**
      * 后台处理完退款后，需要处理如下逻辑，并没有暴漏接口
      * order_refund.status=1, order.status=3
      *
