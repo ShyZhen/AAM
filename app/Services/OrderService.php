@@ -596,7 +596,7 @@ class OrderService extends Service
     {
         $callbackUrl = env('CALLBACK_URL_ALIPAY');
         $uri = 'http://sender.ituiuu.com/alipay'.
-            '?key=yianmo'.
+            '?key=aianmo'.
             '&callback_url='.$callbackUrl.
             '&trade_money='.$amount.
             '&trade_no='.$paymentId.

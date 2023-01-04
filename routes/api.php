@@ -72,5 +72,11 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
         Route::post('/pay/refund', 'OrderController@refund');            // （后台处理完退款之后，记得修改order_refund.status=1, order.status=3）
         // 调用隐私保护打电话
         // Route::post('/call', 'OrderController@call');
+
+        // 用户确认完成订单   评分
+        Route::post('/finish', 'OrderController@finish');
+        Route::post('/rating', 'OrderController@rating');
+
+        // 没有用户完成订单，是需要支付两次，给某个技师，支付后才算完成，更改完成状态
     });
 });

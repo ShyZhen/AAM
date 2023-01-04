@@ -29,9 +29,10 @@ class AuthController extends Controller
         $account = $request->get('phone');
 
         // 正则验证是邮箱还是手机号
-        $type = $this->authService->regexAccountType($account);
+        // $type = $this->authService->regexAccountType($account);
+        $type = 'phone';
 
-        if ($type) {
+        if ($type && $account) {
             return $this->authService->sendLoginCodeCurl($account);
         } else {
             return response()->json(
@@ -63,9 +64,10 @@ class AuthController extends Controller
         $account = $request->get('phone');
 
         // 正则验证是邮箱还是手机号
-        $type = $this->authService->regexAccountType($account);
+        // $type = $this->authService->regexAccountType($account);
+        $type = 'phone';
 
-        if ($type) {
+        if ($type && $account) {
             $validator = Validator::make($request->all(), [
                 'account' => 'max:255',
                 'code' => 'required|size:5',
