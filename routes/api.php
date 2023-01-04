@@ -40,6 +40,8 @@ Route::prefix('V1')->namespace('App\Http\Controllers\Api\V1')->group(function ()
         Route::any('alipay', 'CallbackController@alipay');
         Route::any('wechat', 'CallbackController@wechat');
     });
+
+    Route::get('h5config', 'BootstrapController@h5config');
 });
 
 // need ACCESS TOKEN
@@ -54,8 +56,6 @@ Route::prefix('V1')->middleware('auth:sanctum')->namespace('App\Http\Controllers
     Route::post('follow/{userUuid}', 'UserController@follow');
     Route::get('follow/status/{userUuid}', 'UserController@status');
     Route::get('follow/list/{userUuid}', 'UserController@getFollowsList');
-
-    Route::get('h5config', 'BootstrapController@h5config');
 
     // 由于可以换技师，在支付成功回调更新技师订单数
     Route::prefix('order')->group(function () {

@@ -39,11 +39,16 @@ class BootstrapService extends Service
      */
     public function geth5config()
     {
-        $loginUid = Auth::id();
+        $loginUid = auth('sanctum')->id();
         $appName = env('APP_NAME', 'AiAnMo');            // 应用英文名（）
         $keFu = env('APP_KEFU', 'aianmo@126.com');       // 客服邮箱或电话，多个用半角逗号分隔
 
         $key = base_convert($loginUid, 10, 9) . '9' . base_convert(strrev($loginUid), 10, 9);
+
+        if (!$loginUid) {
+            $key = 0;
+        }
+
         $h5im = "https://m.ituiuu.com/im?appname=$appName&kefu=$keFu&key=$key";
         $h5find = "https://m.ituiuu.com/find?appname=$appName&kefu=$keFu&key=$key";
 
